@@ -4,19 +4,19 @@ const { generateToken } = require('../../config/jwt');
 class AuthService {
   // Register a new user
   async register(userData) {
-    const { name, email, password } = userData;
+    const { username, password, role } = userData;
 
     // Check if user already exists
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ username });
     if (existingUser) {
-      throw new Error('User already exists with this email');
+      throw new Error('User already exists with this username');
     }
 
     // Create user
     const user = await User.create({
-      name,
-      email,
+      username,
       password,
+      role,
     });
 
     // Generate token
@@ -29,22 +29,22 @@ class AuthService {
   }
 
   // Login user
-  async login(email, password) {
-    // Check if user exists and get password
-    const user = await User.findOne({ email }).select('+password');
-    if (!user) {
-      throw new Error('Invalid credentials');
+  async login(username, password) {
+    const users = await User.find().lean();
+    if (!users.length) {
+      return await this.register({ username, password, role: 'admin' });
     }
 
-    // Check if user is active
-    if (!user.isActive) {
-      throw new Error('Account is deactivated');
+    // Check if user exists and get password
+    const user = await User.findOne({ username }).select('+password');
+    if (!user) {
+      throw new Error('Invalid username');
     }
 
     // Check password
     const isValidPassword = await user.comparePassword(password);
     if (!isValidPassword) {
-      throw new Error('Invalid credentials');
+      throw new Error('Invalid password');
     }
 
     // Generate token
@@ -72,17 +72,16 @@ class AuthService {
     const filteredData = {};
 
     // Filter allowed fields
-    Object.keys(updateData).forEach(key => {
+    Object.keys(updateData).forEach((key) => {
       if (allowedFields.includes(key)) {
         filteredData[key] = updateData[key];
       }
     });
 
-    const user = await User.findByIdAndUpdate(
-      userId,
-      filteredData,
-      { new: true, runValidators: true }
-    );
+    const user = await User.findByIdAndUpdate(userId, filteredData, {
+      new: true,
+      runValidators: true,
+    });
 
     if (!user) {
       throw new Error('User not found');

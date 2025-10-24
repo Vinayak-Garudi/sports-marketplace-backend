@@ -14,7 +14,7 @@ const validate = (schema) => {
   };
 };
 
-// Create category validation schema
+// Create equipment validation schema
 const createSchema = Joi.object({
   name: Joi.string()
     .min(2)
@@ -59,7 +59,7 @@ const createSchema = Joi.object({
   //   }),
 });
 
-// Update category validation schema (all fields optional)
+// Update equipment validation schema (all fields optional)
 const updateSchema = Joi.object({
   name: Joi.string()
     .min(2)

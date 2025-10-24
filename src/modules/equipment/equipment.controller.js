@@ -1,8 +1,8 @@
-const categoryService = require('./category.service');
+const equipmentService = require('./equipment.service');
 const asyncHandler = require('../../utils/asyncHandler');
 
-class CategoryController {
-  // Get all categorys
+class EquipmentController {
+  // Get all equipments
   getAll = asyncHandler(async (req, res) => {
     const options = {
       page: req.query.page,
@@ -17,77 +17,77 @@ class CategoryController {
       options.filter.isActive = req.query.isActive === 'true';
     }
 
-    const result = await categoryService.getAll(options);
+    const result = await equipmentService.getAll(options);
 
     res.status(200).json({
       success: true,
-      message: 'Categorys retrieved successfully',
+      message: 'Equipments retrieved successfully',
       data: result.items,
       pagination: result.pagination,
     });
   });
 
-  // Get category by ID
+  // Get equipment by ID
   getById = asyncHandler(async (req, res) => {
     const { id } = req.params;
     const populate = req.query.populate || '';
     
-    const category = await categoryService.getById(id, populate);
+    const equipment = await equipmentService.getById(id, populate);
 
     res.status(200).json({
       success: true,
-      message: 'Category retrieved successfully',
-      data: category,
+      message: 'Equipment retrieved successfully',
+      data: equipment,
     });
   });
 
-  // Create new category
+  // Create new equipment
   create = asyncHandler(async (req, res) => {
-    const category = await categoryService.create(req.body);
+    const equipment = await equipmentService.create(req.body);
 
     res.status(201).json({
       success: true,
-      message: 'Category created successfully',
-      data: category,
+      message: 'Equipment created successfully',
+      data: equipment,
     });
   });
 
-  // Update category
+  // Update equipment
   update = asyncHandler(async (req, res) => {
     const { id } = req.params;
-    const category = await categoryService.update(id, req.body);
+    const equipment = await equipmentService.update(id, req.body);
 
     res.status(200).json({
       success: true,
-      message: 'Category updated successfully',
-      data: category,
+      message: 'Equipment updated successfully',
+      data: equipment,
     });
   });
 
-  // Delete category
+  // Delete equipment
   delete = asyncHandler(async (req, res) => {
     const { id } = req.params;
-    await categoryService.delete(id);
+    await equipmentService.delete(id);
 
     res.status(200).json({
       success: true,
-      message: 'Category deleted successfully',
+      message: 'Equipment deleted successfully',
     });
   });
 
-  // Deactivate category (soft delete)
+  // Deactivate equipment (soft delete)
   deactivate = asyncHandler(async (req, res) => {
     const { id } = req.params;
-    const category = await categoryService.deactivate(id);
+    const equipment = await equipmentService.deactivate(id);
 
     res.status(200).json({
       success: true,
-      message: 'Category deactivated successfully',
-      data: category,
+      message: 'Equipment deactivated successfully',
+      data: equipment,
     });
   });
 
-  // Search categorys
+  // Search equipments
   search = asyncHandler(async (req, res) => {
     const { q: searchTerm } = req.query;
     
@@ -106,26 +106,26 @@ class CategoryController {
       filter: {},
     };
 
-    const result = await categoryService.search(searchTerm, options);
+    const result = await equipmentService.search(searchTerm, options);
 
     res.status(200).json({
       success: true,
-      message: 'Categorys search results',
+      message: 'Equipments search results',
       data: result.items,
       pagination: result.pagination,
     });
   });
 
-  // Get category statistics
+  // Get equipment statistics
   getStats = asyncHandler(async (req, res) => {
-    const stats = await categoryService.getStats();
+    const stats = await equipmentService.getStats();
 
     res.status(200).json({
       success: true,
-      message: 'Category statistics retrieved successfully',
+      message: 'Equipment statistics retrieved successfully',
       data: stats,
     });
   });
 }
 
-module.exports = new CategoryController();
+module.exports = new EquipmentController();
