@@ -4,11 +4,11 @@ class EquipmentService {
   // Get all equipments with pagination
   async getAll(options = {}) {
     const {
-      page = 1,
-      limit = 10,
-      sort = '-createdAt',
-      filter = {},
-      populate = '',
+      page = options.page || 1,
+      limit = options.limit || 10,
+      sort = options.sort || '-createdAt',
+      filter = options.filter || {},
+      populate = options.populate || '',
     } = options;
 
     const skip = (page - 1) * limit;

@@ -47,6 +47,11 @@ PORT=5001
 MONGODB_URI=mongodb://localhost:27017/your-database-name
 JWT_SECRET=your-secret-key
 JWT_EXPIRES_IN=7d
+
+# Cloudinary Configuration (for image uploads)
+CLOUDINARY_CLOUD_NAME=your-cloud-name
+CLOUDINARY_API_KEY=your-api-key
+CLOUDINARY_API_SECRET=your-api-secret
 ```
 
 ## Setup Instructions
@@ -101,6 +106,11 @@ PORT=5001
 MONGODB_URI=mongodb://localhost:27017/myapp-local
 JWT_SECRET=local-dev-secret-key
 JWT_EXPIRES_IN=7d
+
+# Cloudinary Configuration
+CLOUDINARY_CLOUD_NAME=your-cloud-name
+CLOUDINARY_API_KEY=your-api-key
+CLOUDINARY_API_SECRET=your-api-secret
 ```
 
 ### Development Server (.env.development)
@@ -111,6 +121,11 @@ PORT=5001
 MONGODB_URI=mongodb://dev-server:27017/myapp-dev
 JWT_SECRET=development-secret-key
 JWT_EXPIRES_IN=7d
+
+# Cloudinary Configuration
+CLOUDINARY_CLOUD_NAME=your-cloud-name
+CLOUDINARY_API_KEY=your-api-key
+CLOUDINARY_API_SECRET=your-api-secret
 ```
 
 ### Production Server (.env.production)
@@ -121,4 +136,9 @@ PORT=5001
 MONGODB_URI=mongodb+srv://user:password@cluster.mongodb.net/myapp-prod
 JWT_SECRET=super-strong-production-secret-key
 JWT_EXPIRES_IN=1d
+
+# Cloudinary Configuration
+CLOUDINARY_CLOUD_NAME=your-cloud-name
+CLOUDINARY_API_KEY=your-api-key
+CLOUDINARY_API_SECRET=your-api-secret
 ```
