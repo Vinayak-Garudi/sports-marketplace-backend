@@ -16,7 +16,7 @@ router.use(auth);
 router
   .route('/')
   .get(equipmentController.getAll)
-  .post(equipmentValidation.validateCreate, equipmentController.create);
+  .post(equipmentController.create);
 
 router
   .route('/:id')

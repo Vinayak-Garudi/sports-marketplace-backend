@@ -56,6 +56,7 @@ class EquipmentService {
   // Create new equipment
   async create(data) {
     const item = await Equipment.create(data);
+    console.log('Created Equipment:', item);
     return item;
   }
 
