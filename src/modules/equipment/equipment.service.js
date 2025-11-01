@@ -89,13 +89,18 @@ class EquipmentService {
   async search(searchTerm, options = {}) {
     const searchFilter = {
       $or: [
-        { name: { $regex: searchTerm, $options: 'i' } },
+        { title: { $regex: searchTerm, $options: 'i' } },
         { description: { $regex: searchTerm, $options: 'i' } },
+        { category: { $regex: searchTerm, $options: 'i' } },
+        { brand: { $regex: searchTerm, $options: 'i' } },
+        { sellerName: { $regex: searchTerm, $options: 'i' } },
+        { location: { $regex: searchTerm, $options: 'i' } },
       ],
       ...options.filter,
     };
 
-    return this.getAll({ ...options, filter: searchFilter });
+    const results = await this.getAll({ ...options, filter: searchFilter });
+    return results;
   }
 
   // Get equipment statistics
